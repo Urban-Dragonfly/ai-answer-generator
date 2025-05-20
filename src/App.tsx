@@ -34,11 +34,13 @@ function App() {
         durationHours: durationHours,
       });
 
+      if (response.data?.error) {
+        console.error("Błąd Bedrock:", response.data.error);
+      }
+
       if (!response.data?.body) {
         throw new Error("Brak odpowiedzi z serwera.");
       }
-
-      
 
       const planText = response.data.body;
 

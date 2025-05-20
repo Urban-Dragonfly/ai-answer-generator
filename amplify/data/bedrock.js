@@ -50,12 +50,19 @@ Wyjście:
   }
   
   export function response(ctx) {
-    // Parse the response body
-    const parsedBody = JSON.parse(ctx.result.body);
-    // Extract the text content from the response
-    const res = {
+    const status = ctx.result.statusCode;
+    const body = ctx.result.body;
+
+    if (status !== 200) {
+      return {
+        body: "",
+        error: `Błąd z Bedrock: ${status} - ${body}`,
+      };
+    }
+
+    const parsedBody = JSON.parse(body);
+    return {
       body: parsedBody.content[0].text,
+      error: "",
     };
-    // Return the response
-    return res;
   }
