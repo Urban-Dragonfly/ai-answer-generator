@@ -38,9 +38,9 @@ function App() {
         throw new Error("Brak odpowiedzi z serwera.");
       }
 
-      const res = JSON.parse(response.data.body);
+      
 
-      const planText = res.content[0].text;
+      const planText = response.data.body;
 
       setResult(planText ?? "Brak danych");
     } catch (error) {
