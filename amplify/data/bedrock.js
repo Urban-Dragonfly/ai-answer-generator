@@ -21,7 +21,7 @@ Wyjście:
   
     // Return the request configuration
     return {
-      resourcePath: `/model/us.anthropic.claude-3-7-sonnet-20250219-v1:0/invoke`,
+      resourcePath: `/model/inference-profile/us.anthropic.claude-3-7-sonnet-20250219-v1:0/invoke`,
       method: "POST",
       params: {
         headers: {
