@@ -29,7 +29,7 @@ Wyjście:
         },
         body: JSON.stringify({
           anthropic_version: "bedrock-2023-05-31",
-          max_tokens: 1500,
+          max_tokens: 1200,
           temperature: 0.5,
           top_p: 0.9,
           top_k: 250,
