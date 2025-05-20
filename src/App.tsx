@@ -17,6 +17,9 @@ const amplifyClient = generateClient<Schema>({
 });
 
 function App() {
+  const [city, setCity] = useState("");
+  const [startPoint, setStartPoint] = useState("");
+  const [durationHours, setDurationHours] = useState(1);
   const [result, setResult] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
@@ -25,21 +28,24 @@ function App() {
     setLoading(true);
 
     try {
-      const formData = new FormData(event.currentTarget);
-      
-      const { data, errors } = await amplifyClient.queries.askBedrock({
-        ingredients: [formData.get("ingredients")?.toString() || ""],
+      const response = await amplifyClient.queries.askBedrock({
+        city: city,
+        startPoint: startPoint,
+        durationHours: durationHours,
       });
 
-      if (!errors) {
-        setResult(data?.body || "No data returned");
-      } else {
-        console.log(errors);
+      if (!response.data?.body) {
+        throw new Error("Brak odpowiedzi z serwera.");
       }
 
-  
-    } catch (e) {
-      alert(`An error occurred: ${e}`);
+      const res = JSON.parse(response.data.body);
+
+      const planText = res.content[0].text;
+
+      setResult(planText ?? "Brak danych");
+    } catch (error) {
+      console.error(error);
+      alert("Wystąpił błąd podczas generowania planu.");
     } finally {
       setLoading(false);
     }
@@ -49,27 +55,57 @@ function App() {
     <div className="app-container">
       <div className="header-container">
         <h1 className="main-header">
-          Meet Your Personal
+          Witaj w Projekcie
           <br />
-          <span className="highlight">Recipe AI</span>
+          <span className="highlight">Layover AI Guide</span>
         </h1>
         <p className="description">
-          Simply type a few ingredients using the format ingredient1,
-          ingredient2, etc., and Recipe AI will generate an all-new recipe on
-          demand...
+          Chciałbym umilić Ci Twój krótki pobyt!
+        </p>
+        <p className="description">
+          Powiedz jakie miasto odwiedzasz i gdzie chciałbyś zacząć spacer.
+        </p>
+        <p className="description">
+          Daj znać ile czasu masz na zwiedzanie.
+        </p>
+        <p className="description">
+          Ja zaplanuję dla Ciebie wspaniałą wycieczkę! *map included 😉
         </p>
       </div>
       <form onSubmit={onSubmit} className="form-container">
         <div className="search-container">
           <input
             type="text"
+            name="city"
+            placeholder="Miasto"
             className="wide-input"
-            id="ingredients"
-            name="ingredients"
-            placeholder="Ingredient1, Ingredient2, Ingredient3,...etc"
+            required
+            onChange={(e) => setCity(e.target.value)}
           />
+          <input
+            type="text"
+            name="startPoint"
+            placeholder="Punkt startowy"
+            className="wide-input"
+            required
+            onChange={(e) => setStartPoint(e.target.value)}
+          />
+          <div className="slider-field">
+            <label htmlFor="durationHours">Czas trwania:</label>{" "}
+            <span className="slider-value">{durationHours} godz.</span>
+            <br />{/* opcjonalnie: łamanie linii, aby suwak był poniżej etykiety */}
+            <input 
+              type="range" 
+              id="durationHours" 
+              name="durationHours" 
+              min="1" max="12" step="1"
+              value={durationHours}
+              onChange={e => setDurationHours(Number(e.target.value))}
+              className="slider-input" 
+            />
+          </div>
           <button type="submit" className="search-button">
-            Generate
+            Generuj przechadzkę
           </button>
         </div>
       </form>

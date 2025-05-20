@@ -33,7 +33,10 @@
 }
 
 .description {
-
+  margin:  auto;
+  text-align: center;
+  align-items: center;
+  padding-bottom: 1rem;
   font-weight: 500;
   font-size: 1.125rem;
   max-width: 65ch;
@@ -56,7 +59,30 @@
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: antiquewhite;
   border-radius: 4px;
+}
+
+.slider-field {
+  display: block;
+  width: 100%;
+  font-size: 16px; /* Dopasowany do font-size pól tekstowych */
+  color: #1a202c
+}
+
+.slider-input {
+  width: 100%;
+  accent-color: #092644; /* Użycie tego samego koloru co tło przycisku */
+  cursor: pointer;       /* Kursor 'pointer' dla lepszej interakcji */
+}
+
+.slider-value {
+  font-size: 16px;         /* dopasuj rozmiarem do pól formularza (np. 16px jak .wide-input) */
+  font-weight: 500;        /* opcjonalnie dopasuj grubość czcionki do etykiet/formularza */
+  margin-left: 8px;        /* odstęp w poziomie od etykiety (jeśli wartość jest obok etykiety) */
+  color: #1a202c;          /* dopasuj kolor tekstu (np. taki jak .description czy domyślny tekst) */
+  display: inline-block;   /* zapewnia, że marginesy działają poprawnie w kontekście tekstu */
 }
 
 .search-button {
@@ -64,8 +90,8 @@
   max-width: 300px; /* Set a maximum width for the button */
   padding: 10px;
   font-size: 16px;
-  background-color: #007bff;
-  color: white;
+  background-color: #092644;
+  color: antiquewhite;
   border: none;
   border-radius: 4px;
   cursor: pointer;
