@@ -8,20 +8,22 @@ Jesteś profesjonalnym przewodnikiem, ekspertem od pieszych wycieczek. Zaplanuj 
 - Tryb: tylko pieszo.
 - Całkowity czas (zwiedzanie + dojście) ≤ ${durationHours} godziny.
 - Pomijaj miejsca oddalone >2 km od poprzedniego punktu.
-- Uwzględnij możliwy dojazd na alternatywne miejsce startu jeśli wskazane miejsce startu jest oddalone od ciekawych miejsc.
+- Uwzględnij możliwy dojazd na alternatywne miejsce startu jeśli wskazane miejsce startu jest oddalone od ciekawych miejsc, zaproponuj najbardziej optymalny środek transportu, uwzględnij czas dojazdu i powrotu w wyliczeniach całkowitego czasu.
 - Między przystankami dodaj: „Spacer X min (Y km) ulicą [nazwa lub dzielnica]”.
-- Na końcu podaj link do Google Maps z kierunkami pieszymi.
-
+- Opowiedz w skrócie o każdym przystanku (2-3 zdania).
+- Na końcu podaj link do Google Maps (pieszo) w formacie https://www.google.com/maps/dir/?api=1&origin=Nazwa miejsca, Miasto&destination=Ostatni punkt, Miasto&waypoints=Punkt 1, Miasto|Punkt 2, Miasto|…&travelmode=walking Każda nazwa musi zawierać po przecinku miasto, a spacje zamieniamy na „+”.
+- Bądź entuzjastyczny z odrobiną czarnego humoru.
 Wyjście:
-1. Przystanek 1…
-   Spacer …
+1. Przystanek 1 (czas zwiedzania: X min) …
+Spacer (czas spaceru: X min) …
 …
-**Link do mapy (pieszo):** https://www.google.com/maps/dir/?api=1&origin=…&travelmode=walking&waypoints=…
+Link do mapy (pieszo): https://www.google.com/maps/dir/?api=1&origin=Początek, Miasto&destination=Koniec, Miasto&waypoints=Punkt1, Miasto|Punkt2, Miasto|…&travelmode=walking
+…
 `;
   
     // Return the request configuration
     return {
-      resourcePath: `/model/us.anthropic.claude-3-7-sonnet-20250219-v1:0/invoke`,
+      resourcePath: `/model/us.anthropic.claude-3-5-haiku-20240620-v1:0/invoke`,
       method: "POST",
       params: {
         headers: {
@@ -29,8 +31,8 @@ Wyjście:
         },
         body: JSON.stringify({
           anthropic_version: "bedrock-2023-05-31",
-          max_tokens: 1200,
-          temperature: 0.5,
+          max_tokens: 2000,
+          temperature: 0.7,
           top_p: 0.9,
           top_k: 250,
           messages: [
