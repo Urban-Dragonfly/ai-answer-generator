@@ -23,7 +23,7 @@ Link do mapy (pieszo): https://www.google.com/maps/dir/?api=1&origin=Początek, 
   
     // Return the request configuration
     return {
-      resourcePath: `/model/us.anthropic.claude-3-5-haiku-20240620-v1:0/invoke`,
+      resourcePath: `/model/us.anthropic.claude-3-5-haiku-20241022-v1:0/invoke`,
       method: "POST",
       params: {
         headers: {

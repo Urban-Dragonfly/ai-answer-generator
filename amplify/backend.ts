@@ -23,7 +23,7 @@ bedrockDataSource.grantPrincipal.addToPrincipalPolicy(
   new PolicyStatement({
     resources: [
       "arn:aws:bedrock:*:265980493753:inference-profile/*",
-      "arn:aws:bedrock:*::foundation-model/anthropic.claude-3-5-haiku-20240620-v1:0",
+      "arn:aws:bedrock:*::foundation-model/anthropic.claude-3-5-haiku-20241022-v1:0",
     ],
     actions: ["bedrock:InvokeModel"],    
   })
