@@ -1,10 +1,11 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-headers: 'Exo 2', sans-serif;
+  --font-body:    'Source Code Pro', monospace;
   line-height: 1.5;
   font-weight: 400;
 
   color: rgba(0, 0, 0, 0.87);
-  background-color: #adbfe4;
+  background-color: #54c2e5;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -12,8 +13,13 @@
 
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0 2rem;
 
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
 }
 
 .card {

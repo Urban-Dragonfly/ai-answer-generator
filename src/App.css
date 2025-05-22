@@ -1,7 +1,6 @@
 .app-container {
-
   margin: 0 auto;
-  padding: 20px;
+  padding: 20px 0;
   text-align: center;
 }
 
@@ -9,17 +8,17 @@
   padding-bottom: 2.5rem;
   margin:  auto;
   text-align: center;
-
   align-items: center;
-  max-width: 48rem;
-  
-  
+  max-width: 48rem;  
 }
 
 .main-header {
-  font-size: 2.25rem;
-  font-weight: bold;
+  font-size: clamp(2.5rem, 7vw, 3.5rem);
+  font-family: var(--font-headers);
+  font-weight: 700;
+  font-style: italic;
   color: #1a202c;
+  padding-bottom: 2.5rem;
 }
 
 .main-header .highlight {
@@ -37,10 +36,20 @@
   text-align: center;
   align-items: center;
   padding-bottom: 1rem;
-  font-weight: 500;
+  font-family: var(--font-body);
+  font-weight: 400;   /* regular – Twoje własne notatki */
   font-size: 1.125rem;
   max-width: 65ch;
   color: #1a202c;
+}
+
+.text-content {
+  margin-bottom: 1rem;
+}
+
+.top-content {
+  display: block;
+  text-align: center;
 }
 
 .form-container {
@@ -67,14 +76,16 @@
 .slider-field {
   display: block;
   width: 100%;
-  font-size: 16px; /* Dopasowany do font-size pól tekstowych */
-  color: #1a202c
+  font-size: 16px;
+  color: #1a202c;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .slider-input {
   width: 100%;
-  accent-color: #092644; /* Użycie tego samego koloru co tło przycisku */
-  cursor: pointer;       /* Kursor 'pointer' dla lepszej interakcji */
+  accent-color: #092644;
+  cursor: pointer;
 }
 
 .slider-value {
@@ -95,14 +106,26 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
+  transition: transform 0.6s ease, background-color 0.6s ease, opacity 0.6s ease;
 }
 
 .search-button:hover {
   background-color: #0056b3;
+  transform: scale(1.05);
+  transition: transform 0.6s ease, background-color 0.6s ease, opacity 0.6s ease;
+}
+
+.search-button:disabled {
+  opacity: 0.5;
+  background-color: #092644;
+  transform: scale(1);
+  transition: transform 0.6s ease, opacity 0.6s ease, background-color 0.6s ease;
+  cursor: wait;  /* ikona “zakaz” */
 }
 
 .result-container {
-  margin-top: 20px;
+  margin-top: 2rem;
   transition: height 0.3s ease-out;
   overflow: hidden;
 }
@@ -122,6 +145,101 @@
   white-space: pre-wrap;
   word-wrap: break-word;
   color: black;
-  font-weight: bold;
-  text-align: left; /* Align text to the left */
+  font-family: var(--font-body);
+  font-weight: 300;   /* lekki – AI */
+  text-align: left;
+}
+
+.illustration {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1rem auto;
+}
+
+.left-image {
+  display: none;       /* Na małych ekranach ukrywamy górny prawy obrazek */
+}
+
+.bottom-image {
+  display: block;      /* Na małych ekranach pokazujemy obrazek na dole strony */
+  margin: 1rem auto 0rem;
+  translate: 0 8px;   /* Wyśrodkowanie dolnego obrazka */
+}
+
+.map-icon {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-size: 3rem;
+  color: #0056b3;
+  vertical-align: middle;
+  transition: transform 0.6s ease; /* wyrównanie w linii tekstu */
+}
+
+.map-icon:hover {
+  transform: scale(1.15);
+  transition: transform 0.6s ease;
+}
+
+@media (min-width: 768px) {
+  .left-image {
+    display: block;    /* Na średnich ekranach pokazujemy lewy obrazek poniżej tekstu */
+  }
+  .bottom-image {
+    display: none;     /* Obrazek na dole strony nie jest potrzebny na tabletach */
+  }
+}
+
+@media (min-width: 768px) {
+  .right-image {
+    display: block;    /* Na średnich ekranach pokazujemy prawy obrazek poniżej tekstu */
+  }
+  .bottom-image {
+    display: none;     /* Obrazek na dole strony nie jest potrzebny na tabletach */
+  }
+}
+
+
+
+@media (max-width: 768px) {
+  .app-container {
+    padding: 1rem 10px 0;/* Padding dla mniejszych ekranów */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .left-image,
+  .right-image {
+    display: inline-block;
+    height: 20rem;     /* obok siebie jako blok liniowy */
+    width: auto;
+    object-fit: contain;                /* każdy zajmuje prawie połowę szerokości */
+    margin: 3rem 4.5% 0rem;         /* odstęp między nimi i od krawędzi */
+    vertical-align: top;       /* wyrównaj górne krawędzie obrazków */
+  }
+
+  /* na tabletach wciąż nie pokazujemy bottom-image */
+  .bottom-image {
+    display: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .left-image,
+  .right-image {
+    position: absolute;
+    top: 6rem;
+    height: 400px;           /* pionowy offset od górnej krawędzi .header-container */
+    width: auto;
+  }
+
+  /* lewy obrazek przy lewej krawędzi */
+  .left-image {
+    left: 4rem;          /* poziomy offset od lewej */
+  }
+
+  /* prawy obrazek przy prawej krawędzi */
+  .right-image {
+    right: 0rem;
+    z-index: -1;         /* poziomy offset od prawej */
+  }
 }

@@ -53,26 +53,33 @@ function App() {
     }
   };
 
+  const isGoogleMaps = (url: string) =>
+    /https:\/\/www\.google\.com\/maps/.test(url);
+
   return (
     <div className="app-container">
-      <div className="header-container">
-        <h1 className="main-header">
-          Witaj w Projekcie
-          <br />
-          <span className="highlight">Layover AI Guide</span>
-        </h1>
-        <p className="description">
-          Chciałbym umilić Ci Twój krótki pobyt!
-        </p>
-        <p className="description">
-          Powiedz jakie miasto odwiedzasz i gdzie chciałbyś zacząć spacer.
-        </p>
-        <p className="description">
-          Daj znać ile czasu masz na zwiedzanie.
-        </p>
-        <p className="description">
-          Ja zaplanuję dla Ciebie wspaniałą wycieczkę! *map included 😉
-        </p>
+      <div className="header-container top-content">
+        <div className="text-content">
+          <h1 className="main-header">
+            Witaj w Projekcie
+            <br />
+            <span className="highlight">Layover AI Guide</span>
+          </h1>
+          <p className="description">
+            Chciałbym umilić Ci Twój krótki pobyt!
+          </p>
+          <p className="description">
+            Powiedz jakie miasto odwiedzasz i gdzie chciałbyś zacząć spacer.
+          </p>
+          <p className="description">
+            Daj znać ile czasu masz na zwiedzanie.
+          </p>
+          <p className="description">
+            Ja zaplanuję dla Ciebie wspaniałą wycieczkę! *map included 😉
+          </p>
+          <img src="src\assets\lotek-robo-guide-full.png" alt="Lotek Android pokazuje mapę" className="illustration left-image" />
+          <img src="src\assets\lotek-tourist.png" alt="Lotek Turysta" className="illustration right-image" />
+        </div>
       </div>
       <form onSubmit={onSubmit} className="form-container">
         <div className="search-container">
@@ -106,8 +113,8 @@ function App() {
               className="slider-input" 
             />
           </div>
-          <button type="submit" className="search-button">
-            Generuj przechadzkę
+          <button type="submit" className="search-button" disabled={loading}>
+            {loading ? 'Generowanie…' : 'Generuj przechadzkę'}
           </button>
         </div>
       </form>
@@ -121,9 +128,38 @@ function App() {
             <Placeholder size="large" />
           </div>
         ) : (
-          result && <p className="result">{result}</p>
+          result && <p className="result">
+            {result.split(/(https?:\/\/\S+)/).map((frag, i) => {
+              const key = `${frag}-${i}`;
+              if (RegExp(/^https?:\/\//).exec(frag)) {
+                return isGoogleMaps(frag) ? (
+                  <a
+                    key={key}
+                    href={frag}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span className="material-symbols-outlined map-icon">
+                      map
+                    </span>
+                  </a>
+                ) : (
+                  <a
+                    key={key}
+                    href={frag}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {frag}
+                  </a>
+                )
+              }
+              return <span key={key}>{frag}</span>
+            })}
+          </p>
         )}
       </div>
+      <img src="src\assets\lotek-robo-guide-cell.png" alt="Lotek android pokazuje mapę" className="illustration bottom-image" />
     </div>
   );
 }
