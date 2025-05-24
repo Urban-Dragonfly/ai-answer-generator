@@ -7,6 +7,10 @@ import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 import outputs from "../amplify_outputs.json";
 
+import lotekRoboGuideFull from "./assets/lotek-robo-guide-full.png";
+import lotekTourist from "./assets/lotek-tourist.png";
+import lotekRoboGuideCell from "./assets/lotek-robo-guide-cell.png";
+
 
 import "@aws-amplify/ui-react/styles.css";
 
@@ -77,8 +81,8 @@ function App() {
           <p className="description">
             Ja zaplanuję dla Ciebie wspaniałą wycieczkę! *map included 😉
           </p>
-          <img src="src\assets\lotek-robo-guide-full.png" alt="Lotek Android pokazuje mapę" className="illustration left-image" />
-          <img src="src\assets\lotek-tourist.png" alt="Lotek Turysta" className="illustration right-image" />
+          <img src={lotekRoboGuideFull} alt="Lotek Android pokazuje mapę" className="illustration left-image" />
+          <img src={lotekTourist} alt="Lotek Turysta" className="illustration right-image" />
         </div>
       </div>
       <form onSubmit={onSubmit} className="form-container">
@@ -159,7 +163,7 @@ function App() {
           </p>
         )}
       </div>
-      <img src="src\assets\lotek-robo-guide-cell.png" alt="Lotek android pokazuje mapę" className="illustration bottom-image" />
+      <img src={lotekRoboGuideCell} alt="Lotek android pokazuje mapę" className="illustration bottom-image" />
     </div>
   );
 }
