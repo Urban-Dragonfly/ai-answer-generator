@@ -1,12 +1,15 @@
 import { defineAuth } from "@aws-amplify/backend";
+import { preSignUp } from "./preSignUp/resource";
+import { customMessage } from "./customMessage/resource";
 
 export const auth = defineAuth({
   loginWith: {
     email: {
       verificationEmailStyle: "CODE",
-      verificationEmailSubject: "Welcome to the AI-Powered Recipe Generator!",
-      verificationEmailBody: (createCode) =>
-        `Use this code to confirm your account: ${createCode()}`,
     },
+  },
+  triggers: {
+    preSignUp,
+    customMessage,
   },
 });
